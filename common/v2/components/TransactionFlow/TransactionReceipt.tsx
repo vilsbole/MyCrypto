@@ -84,7 +84,7 @@ export default function TransactionReceipt({
   });
 
   const recipientContact = getContactByAddressAndNetwork(
-    txConfig.receiverAddress,
+    'to' in txReceipt ? txReceipt.to : txConfig.receiverAddress,
     txConfig.network
   );
   const recipientLabel = recipientContact ? recipientContact.label : 'Unknown Address';
@@ -97,8 +97,8 @@ export default function TransactionReceipt({
   const senderAccountLabel = senderContact ? senderContact.label : 'Unknown Account';
 
   const localTimestamp = new Date(Math.floor(timestamp * 1000)).toLocaleString();
-  const assetAmount = txReceipt.amount || txConfig.amount;
-  const assetTicker = 'asset' in txReceipt ? txReceipt.asset.ticker : 'ETH';
+  const assetAmount = 'amount' in displayTxReceipt ? displayTxReceipt.amount : txConfig.amount;
+  const assetTicker = 'asset' in displayTxReceipt ? displayTxReceipt.asset.ticker : undefined;
   return (
     <div className="TransactionReceipt">
       <div className="TransactionReceipt-row">
@@ -123,21 +123,23 @@ export default function TransactionReceipt({
           </div>
         </div>
       </div>
-      <div className="TransactionReceipt-row">
-        <div className="TransactionReceipt-row-column">
-          <img src={sentIcon} alt="Sent" /> You Sent:
-        </div>
-        <div className="TransactionReceipt-row-column">
-          <Amount
-            assetValue={`${parseFloat(assetAmount).toFixed(6)} ${assetTicker}`}
-            fiatValue={`$${convertToFiat(
-              parseFloat(assetAmount),
-              getRate(assetTicker as TTicker)
-            ).toFixed(2)}
+      {assetTicker && assetAmount && (
+        <div className="TransactionReceipt-row">
+          <div className="TransactionReceipt-row-column">
+            <img src={sentIcon} alt="Sent" /> You Sent:
+          </div>
+          <div className="TransactionReceipt-row-column">
+            <Amount
+              assetValue={`${parseFloat(assetAmount).toFixed(6)} ${assetTicker}`}
+              fiatValue={`$${convertToFiat(
+                parseFloat(assetAmount),
+                getRate(assetTicker as TTicker)
+              ).toFixed(2)}
             `}
-          />
+            />
+          </div>
         </div>
-      </div>
+      )}
       <div className="TransactionReceipt-divider" />
       <div className="TransactionReceipt-details">
         <div className="TransactionReceipt-details-row">
