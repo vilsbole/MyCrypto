@@ -26,12 +26,9 @@ export default function getWindow() {
     titleBarStyle: 'hidden',
     webPreferences: {
       devTools: true,
-      preload: path.join(__dirname, 'preload.js'),
-
-      // For security reasons the following params should not be modified
-      // https://electronjs.org/docs/tutorial/security#isolation-for-untrusted-content
-      nodeIntegration: false,
-      contextIsolation: true
+      nodeIntegration: true,
+      contextIsolation: false,
+      preload: path.join(__dirname, 'preload.js')
     }
   });
 
