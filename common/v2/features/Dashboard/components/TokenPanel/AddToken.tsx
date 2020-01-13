@@ -7,6 +7,7 @@ import { InputField, NetworkSelectDropdown, DashboardPanel } from 'v2/components
 import { translateRaw } from 'v2/translations';
 import { AssetContext, NetworkContext } from 'v2/services/Store';
 import { ExtendedAsset, NetworkId } from 'v2/types';
+import { AnalyticsService, ANALYTICS_CATEGORIES } from 'v2/services/ApiService';
 import { DEFAULT_NETWORK, DEFAULT_ASSET_DECIMAL } from 'v2/config';
 import { isValidAddress } from 'v2/services';
 
@@ -99,10 +100,20 @@ export function AddToken(props: Props) {
     createAssetWithID(newAsset, uuid);
     scanTokens(newAsset);
     setShowAddToken(false);
+
+    AnalyticsService.instance.track(
+      ANALYTICS_CATEGORIES.TOKEN_SCANNER,
+      'User added a custom token'
+    );
   };
 
   const handleCancelClick = () => {
     setShowAddToken(false);
+
+    AnalyticsService.instance.track(
+      ANALYTICS_CATEGORIES.TOKEN_SCANNER,
+      'User cancelled adding a custom token'
+    );
   };
 
   return (

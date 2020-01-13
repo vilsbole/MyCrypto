@@ -3,6 +3,7 @@ import React, { useState, useContext, useEffect } from 'react';
 import { StoreContext, RatesContext, TokenInfoService } from 'v2/services';
 import { AssetWithDetails, ExtendedAsset, StoreAsset } from 'v2/types';
 import { TokenList } from './TokenList';
+import { AnalyticsService, ANALYTICS_CATEGORIES } from 'v2/services/ApiService';
 import { TokenDetails } from './TokenDetails';
 import { AddToken } from './AddToken';
 
@@ -17,6 +18,7 @@ export function TokenPanel() {
   const { getAssetRate } = useContext(RatesContext);
 
   const handleScanTokens = async (asset?: ExtendedAsset) => {
+    AnalyticsService.instance.track(ANALYTICS_CATEGORIES.TOKEN_SCANNER, 'Scan for tokens clicked');
     try {
       setIsScanning(true);
       await scanTokens(asset);

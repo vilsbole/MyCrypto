@@ -22,7 +22,8 @@ export enum ANALYTICS_CATEGORIES {
   NOTIFICATION = 'Notification',
   SETTINGS = 'Settings',
   WALLET_BREAKDOWN = 'Wallet breakdown',
-  AD = 'Ad'
+  AD = 'Ad',
+  TOKEN_SCANNER = 'Token Scanner'
 }
 
 /* Previous Params from 'develop'

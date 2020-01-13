@@ -6,6 +6,7 @@ import { convertToFiatFromAsset } from 'v2/utils';
 import { AssetWithDetails, TSymbol } from 'v2/types';
 import { AssetIcon, DashboardPanel, Spinner } from 'v2/components';
 import { translateRaw } from 'v2/translations';
+import { AnalyticsService, ANALYTICS_CATEGORIES } from 'v2/services/ApiService';
 
 import moreIcon from 'common/assets/images/icn-more.svg';
 
@@ -72,6 +73,13 @@ interface TokenListProps {
   handleScanTokens(): Promise<void>;
 }
 
+const trackAddTokenClick = () => {
+  AnalyticsService.instance.track(
+    ANALYTICS_CATEGORIES.TOKEN_SCANNER,
+    `+Add (token) button clicked`
+  );
+};
+
 export function TokenList(props: TokenListProps) {
   const {
     setShowDetailsView,
@@ -89,7 +97,12 @@ export function TokenList(props: TokenListProps) {
           <StyledButton onClick={() => handleScanTokens()}>
             {translateRaw('SCAN_TOKENS_SHORT')}
           </StyledButton>
-          <StyledButton onClick={() => setShowAddToken(true)}>
+          <StyledButton
+            onClick={() => {
+              setShowAddToken(true);
+              trackAddTokenClick();
+            }}
+          >
             + {translateRaw('ADD_TOKEN_SHORT')}
           </StyledButton>
         </div>
