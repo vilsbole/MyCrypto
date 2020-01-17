@@ -23,7 +23,9 @@ export enum ANALYTICS_CATEGORIES {
   SETTINGS = 'Settings',
   WALLET_BREAKDOWN = 'Wallet breakdown',
   AD = 'Ad',
-  TOKEN_SCANNER = 'Token Scanner'
+  TOKEN_SCANNER = 'Token Scanner',
+  ADD_ACCOUNT = 'Add Account',
+  ADD_WEB3_ACCOUNT = 'Add web3 account'
 }
 
 /* Previous Params from 'develop'

@@ -3,6 +3,7 @@ import { Typography } from '@mycrypto/ui';
 
 import translate, { translateRaw } from 'v2/translations';
 import { DOWNLOAD_MYCRYPTO_LINK } from 'v2/config';
+import { ANALYTICS_CATEGORIES, AnalyticsService } from 'v2/services';
 
 import TrustWalletWEBP from 'common/assets/images/wallets/trust-3.webp';
 import CoinbaseWalletJPG from 'common/assets/images/wallets/coinbase.jpg';
@@ -91,6 +92,7 @@ function InstallMetaMask() {
 }
 
 function Web3ProviderInstall() {
+  AnalyticsService.instance.track(ANALYTICS_CATEGORIES.ADD_WEB3_ACCOUNT, `No provider detected`);
   return <>{IS_MOBILE ? <InstallTrunk /> : <InstallMetaMask />}</>;
 }
 
