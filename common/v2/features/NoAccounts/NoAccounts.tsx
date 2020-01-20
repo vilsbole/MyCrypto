@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import { Button } from '@mycrypto/ui';
 
 import translate from 'v2/translations';
+import { AnalyticsService, ANALYTICS_CATEGORIES } from 'v2/services';
+
 import sadWallet from 'common/assets/images/icn-sad-wallet.svg';
 
 const NoAccountsContainer = styled.div`
@@ -126,6 +128,11 @@ export default class NoAccounts extends Component {
   };
   public handleClick() {
     this.setState({ redirect: true });
+  }
+  public componentDidMount() {
+    AnalyticsService.instance.track(ANALYTICS_CATEGORIES.WALLET_BREAKDOWN, `User has no accounts`, {
+      numOfAccounts: 0
+    });
   }
   public render() {
     return (
