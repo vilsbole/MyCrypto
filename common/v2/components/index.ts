@@ -60,3 +60,4 @@ export { default as ParityQrSigner } from './ParityQrSigner';
 export { default as TranslateMarkdown } from './TranslateMarkdown';
 export { default as GasSelector } from './GasSelector';
 export { default as EthAddress } from './EthAddress';
+export { default as GeneralStepper, IStepperPath } from './GeneralStepper';
