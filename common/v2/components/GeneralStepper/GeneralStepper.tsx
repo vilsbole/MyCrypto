@@ -22,7 +22,6 @@ export function GeneralStepper({
 }: StepperProps) {
   const history = useHistory();
   const [step, setStep] = useState(0);
-  console.debug('[GeneralStepper]: Refresh -> step: ', step);
   const goToPrevStep = () => setStep(Math.max(0, step - 1));
   const goToFirstStep = () => setStep(0);
 
@@ -42,10 +41,7 @@ export function GeneralStepper({
       ? defaultBackPathLabel || translateRaw('DASHBOARD')
       : getStep(Math.max(0, step - 1)).label;
 
-  const goToNextStep = () => {
-    console.debug('[GeneralStepper]: Trigger goToNextStep');
-    return setStep(Math.min(step + 1, currentPath.length - 1));
-  };
+  const goToNextStep = () => setStep(Math.min(step + 1, currentPath.length - 1));
 
   const stepObject = steps[step];
   const stepProps = stepObject.props;
